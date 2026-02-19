@@ -1,7 +1,6 @@
 """
 app/db/models.py — SQLAlchemy ORM models for persisted predictions.
 """
-import datetime
 from sqlalchemy import (
     Column, Integer, Float, String, DateTime, func
 )

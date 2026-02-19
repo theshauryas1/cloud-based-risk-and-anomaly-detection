@@ -8,11 +8,10 @@ Run once before starting the server:
     python -m app.models.train_fraud
 """
 import os
-import json
 import joblib
 import numpy as np
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report

@@ -1,8 +1,6 @@
 """
 tests/test_fraud.py — Tests for POST /v1/fraud/predict.
 """
-import pytest
-
 VALID_PAYLOAD = {
     "transaction_amount": 2500.00,
     "merchant_type": "electronics",

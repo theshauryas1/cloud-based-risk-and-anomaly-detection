@@ -22,25 +22,25 @@ np.random.seed(SEED)
 # Normal system metrics
 N_NORMAL = 1800
 response_time_normal = np.random.normal(loc=120, scale=20, size=N_NORMAL)   # ms
-error_rate_normal    = np.random.beta(a=1, b=30, size=N_NORMAL)             # ~0-0.05
-cpu_normal           = np.random.normal(loc=40, scale=10, size=N_NORMAL)    # %
-memory_normal        = np.random.normal(loc=55, scale=8,  size=N_NORMAL)    # %
+error_rate_normal = np.random.beta(a=1, b=30, size=N_NORMAL)             # ~0-0.05
+cpu_normal = np.random.normal(loc=40, scale=10, size=N_NORMAL)    # %
+memory_normal = np.random.normal(loc=55, scale=8, size=N_NORMAL)    # %
 
 # Anomalous metrics (high spike / degradation)
 N_ANOMALY = 200
 response_time_anom = np.random.normal(loc=900, scale=150, size=N_ANOMALY)
-error_rate_anom    = np.random.beta(a=5, b=5, size=N_ANOMALY)              # ~0.3-0.7
-cpu_anom           = np.random.normal(loc=88, scale=8, size=N_ANOMALY)
-memory_anom        = np.random.normal(loc=90, scale=5, size=N_ANOMALY)
+error_rate_anom = np.random.beta(a=5, b=5, size=N_ANOMALY)              # ~0.3-0.7
+cpu_anom = np.random.normal(loc=88, scale=8, size=N_ANOMALY)
+memory_anom = np.random.normal(loc=90, scale=5, size=N_ANOMALY)
 
 X_normal = np.column_stack([response_time_normal, error_rate_normal, cpu_normal, memory_normal])
-X_anom   = np.column_stack([response_time_anom,   error_rate_anom,   cpu_anom,   memory_anom])
+X_anom = np.column_stack([response_time_anom, error_rate_anom, cpu_anom, memory_anom])
 
 # Clip to valid ranges
 X_normal[:, 1] = np.clip(X_normal[:, 1], 0, 1)
-X_anom[:, 1]   = np.clip(X_anom[:, 1],   0, 1)
+X_anom[:, 1] = np.clip(X_anom[:, 1], 0, 1)
 X_normal[:, 2:] = np.clip(X_normal[:, 2:], 0, 100)
-X_anom[:, 2:]   = np.clip(X_anom[:, 2:],   0, 100)
+X_anom[:, 2:] = np.clip(X_anom[:, 2:], 0, 100)
 
 # IsolationForest trains on normal data (unsupervised)
 X_train = X_normal
@@ -65,7 +65,7 @@ scores_raw = pipeline.named_steps["iso"].decision_function(
 score_min, score_max = scores_raw.min(), scores_raw.max()
 scores_norm = 1 - (scores_raw - score_min) / (score_max - score_min + 1e-9)
 avg_normal = scores_norm[:50].mean()
-avg_anom   = scores_norm[50:].mean()
+avg_anom = scores_norm[50:].mean()
 print(f"[anomaly] Sanity — avg normal score: {avg_normal:.3f} | avg anomaly score: {avg_anom:.3f}")
 
 # ── Metadata ─────────────────────────────────────────────────

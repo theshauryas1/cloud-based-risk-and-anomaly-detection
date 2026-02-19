@@ -51,16 +51,16 @@ def get_metrics(db: Session = Depends(get_db)) -> MetricsResponse:
         func.avg(AnomalyPrediction.anomaly_score).label("avg_score"),
     ).one()
 
-    fraud_count      = int(fraud_row.count   or 0)
-    anomaly_count    = int(anomaly_row.count or 0)
-    total            = fraud_count + anomaly_count
+    fraud_count = int(fraud_row.count or 0)
+    anomaly_count = int(anomaly_row.count or 0)
+    total = fraud_count + anomaly_count
 
     return MetricsResponse(
         total_predictions=total,
         fraud_predictions=fraud_count,
         anomaly_predictions=anomaly_count,
-        avg_fraud_latency_ms=round(float(fraud_row.avg_latency   or 0.0), 3),
+        avg_fraud_latency_ms=round(float(fraud_row.avg_latency or 0.0), 3),
         avg_anomaly_latency_ms=round(float(anomaly_row.avg_latency or 0.0), 3),
-        avg_fraud_probability=round(float(fraud_row.avg_score    or 0.0), 4),
-        avg_anomaly_score=round(float(anomaly_row.avg_score      or 0.0), 4),
+        avg_fraud_probability=round(float(fraud_row.avg_score or 0.0), 4),
+        avg_anomaly_score=round(float(anomaly_row.avg_score or 0.0), 4),
     )

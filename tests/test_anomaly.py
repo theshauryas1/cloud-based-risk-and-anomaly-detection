@@ -1,8 +1,6 @@
 """
 tests/test_anomaly.py — Tests for POST /v1/anomaly/predict.
 """
-import pytest
-
 VALID_PAYLOAD = {
     "response_time": 950.0,
     "error_rate": 0.12,

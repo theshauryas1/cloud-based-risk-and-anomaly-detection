@@ -18,7 +18,6 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
 
 from app.db.init_db import init_db
 from app.models.loader import get_model_loader

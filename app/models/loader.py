@@ -17,13 +17,13 @@ class ModelLoader:
 
     def __init__(self):
         logger.info("Loading ML models from disk …")
-        fraud_artifact   = joblib.load(settings.FRAUD_MODEL_PATH)
+        fraud_artifact = joblib.load(settings.FRAUD_MODEL_PATH)
         anomaly_artifact = joblib.load(settings.ANOMALY_MODEL_PATH)
 
-        self._fraud_pipeline   = fraud_artifact["pipeline"]
-        self._fraud_meta       = fraud_artifact["metadata"]
+        self._fraud_pipeline = fraud_artifact["pipeline"]
+        self._fraud_meta = fraud_artifact["metadata"]
         self._anomaly_pipeline = anomaly_artifact["pipeline"]
-        self._anomaly_meta     = anomaly_artifact["metadata"]
+        self._anomaly_meta = anomaly_artifact["metadata"]
 
         logger.info(
             f"Models loaded — fraud={self._fraud_meta['model_version']}  "
@@ -43,8 +43,8 @@ class ModelLoader:
         """Returns (fraud_probability, model_version)."""
         enc = self._fraud_meta["encodings"]
         merchant_idx = enc["merchant_type"].get(merchant_type, 0)
-        country_idx  = enc["country"].get(country, 0)
-        device_idx   = enc["device_type"].get(device_type, 0)
+        country_idx = enc["country"].get(country, 0)
+        device_idx = enc["device_type"].get(device_type, 0)
 
         X = np.array([[transaction_amount, merchant_idx, country_idx,
                        time_delta, device_idx]], dtype=float)
@@ -63,10 +63,10 @@ class ModelLoader:
         """Returns (anomaly_score [0-1], model_version)."""
         X = np.array([[response_time, error_rate, cpu_usage, memory_usage]], dtype=float)
 
-        iso    = self._anomaly_pipeline.named_steps["iso"]
+        iso = self._anomaly_pipeline.named_steps["iso"]
         scaler = self._anomaly_pipeline.named_steps["scaler"]
-        X_sc   = scaler.transform(X)
-        raw    = float(iso.decision_function(X_sc)[0])
+        X_sc = scaler.transform(X)
+        raw = float(iso.decision_function(X_sc)[0])
 
         # Normalise using training-time range stored in metadata
         s_min = self._anomaly_meta["score_range"]["min"]

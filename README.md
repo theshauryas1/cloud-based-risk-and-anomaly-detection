@@ -10,10 +10,9 @@
 [![Render](https://img.shields.io/badge/deployed-Render-46E3B7.svg)](https://cloud-based-risk-and-anomaly-detection.onrender.com/health)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-🌐 **Live API:** `https://cloud-based-risk-and-anomaly-detection.onrender.com`  
-📖 **Swagger Docs:** `https://cloud-based-risk-and-anomaly-detection.onrender.com/docs`
+🌐 **Live API:** https://cloud-based-risk-and-anomaly-detection.onrender.com  
+📖 **Swagger Docs:** https://cloud-based-risk-and-anomaly-detection.onrender.com/docs
 
-> ⚠️ Update the Render URL above once your service is live (Render may assign a different subdomain).
 
 ---
 
